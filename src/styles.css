@@ -1,1 +1,182 @@
-/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", "Inter", sans-serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  --color-bg: #09070f;
+  --color-surface: #120f1f;
+  --color-surface-2: #16132a;
+  --color-violet-glow: #7c3aed;
+  --color-fuchsia-glow: #d946ef;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+html, body {
+  overflow-x: hidden;
+  background: var(--color-bg);
+  color: rgba(255, 255, 255, 0.92);
+  font-family: var(--font-sans);
+}
+
+body {
+  margin: 0;
+  min-height: 100dvh;
+}
+
+section[id] {
+  scroll-margin-top: 84px;
+}
+
+::selection {
+  background: rgba(168, 85, 247, 0.35);
+  color: #fff;
+}
+
+/* ---------- scrollbar ---------- */
+html {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(168, 85, 247, 0.5) transparent;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(168, 85, 247, 0.35);
+  border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 85, 247, 0.6);
+}
+
+/* ---------- background texture ---------- */
+.bg-grid {
+  background-image:
+    linear-gradient(to right, rgba(255, 255, 255, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(255, 255, 255, 0.035) 1px, transparent 1px);
+  background-size: 44px 44px;
+  -webkit-mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 100%);
+}
+
+.bg-noise {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' height='90' viewBox='0 0 90 90'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+}
+
+/* ---------- gradient blobs ---------- */
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(4%, -6%) scale(1.08); }
+  66% { transform: translate(-5%, 4%) scale(0.95); }
+}
+
+.blob {
+  position: absolute;
+  border-radius: 9999px;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: blob-float 16s ease-in-out infinite;
+}
+
+/* ---------- gradient text ---------- */
+.text-gradient {
+  background-image: linear-gradient(90deg, #a78bfa 0%, #e879f9 50%, #818cf8 100%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+/* ---------- reveal on scroll ---------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity .8s cubic-bezier(.16,1,.3,1), transform .8s cubic-bezier(.16,1,.3,1);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ---------- spotlight hover card ---------- */
+.spotlight-card {
+  position: relative;
+  isolation: isolate;
+}
+
+.spotlight-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  opacity: 0;
+  border-radius: inherit;
+  transition: opacity .5s ease;
+  background: radial-gradient(420px circle at var(--x, 50%) var(--y, 50%), rgba(168, 85, 247, .18), transparent 65%);
+  pointer-events: none;
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+/* ---------- misc animations ---------- */
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up .8s cubic-bezier(.16,1,.3,1) both;
+}
+
+@keyframes caret-blink {
+  0%, 45% { opacity: 1; }
+  50%, 95% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.animate-caret {
+  animation: caret-blink 1s steps(1) infinite;
+}
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+.animate-marquee {
+  animation: marquee 26s linear infinite;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(168, 85, 247, .45); }
+  100% { box-shadow: 0 0 0 10px rgba(168, 85, 247, 0); }
+}
+
+.animate-pulse-ring {
+  animation: pulse-ring 2s cubic-bezier(.4,0,.6,1) infinite;
+}

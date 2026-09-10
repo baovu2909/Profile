@@ -1,0 +1,96 @@
+<section id="projects" class="relative py-24 sm:py-32">
+  <div class="mx-auto max-w-7xl px-5">
+
+    <div appReveal class="mx-auto max-w-2xl text-center">
+      <span class="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1.5 text-xs font-semibold uppercase tracking-[0.2em] text-violet-300">
+        {{ i18n.t('Dự án', 'Projects') }}
+      </span>
+      <h2 class="mt-5 font-display text-3xl font-bold text-white sm:text-4xl">
+        {{ i18n.t('Sản phẩm', 'Products') }} <span class="text-gradient">{{ i18n.t('tự tay xây dựng', "I've built") }}</span>
+      </h2>
+      <p class="mt-4 text-sm leading-6 text-white/45">
+        {{ i18n.t('Hai dự án cá nhân, dựng từ front-end đến kết nối API, để luyện tư duy sản phẩm thật chứ không chỉ bài tập.', 'Two personal projects, built from front-end to API integration, to practice real product thinking rather than exercises.') }}
+      </p>
+    </div>
+
+    <div class="mt-14 grid grid-cols-1 gap-7 lg:grid-cols-2">
+      @for (project of projects; track project.key; let i = $index) {
+        <div
+          appSpotlight
+          [appReveal]="i * 140"
+          class="group flex flex-col overflow-hidden rounded-3xl border border-white/8 bg-surface/50 transition-all duration-300 hover:-translate-y-1.5 hover:border-violet-400/25"
+        >
+          <div
+            class="relative flex h-52 items-center justify-center overflow-hidden"
+            [class]="project.accent === 'violet'
+              ? 'bg-gradient-to-br from-violet-700/40 via-violet-900/30 to-surface'
+              : 'bg-gradient-to-br from-fuchsia-700/35 via-fuchsia-900/25 to-surface'"
+          >
+            <div class="absolute inset-0 bg-grid opacity-40"></div>
+            <div
+              class="absolute h-40 w-40 rounded-full blur-3xl transition-transform duration-500 group-hover:scale-125"
+              [class]="project.accent === 'violet' ? 'bg-violet-600/40' : 'bg-fuchsia-600/40'"
+            ></div>
+
+            <div
+              class="relative flex h-20 w-20 items-center justify-center rounded-2xl border border-white/15 bg-white/10 shadow-2xl backdrop-blur-md transition-transform duration-300 group-hover:scale-110 group-hover:-rotate-3"
+            >
+              @if (project.key === 'music') {
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>
+                </svg>
+              } @else {
+                <svg xmlns="http://www.w3.org/2000/svg" width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 2v7c0 1.1.9 2 2 2h1v11"/><path d="M9 2v20"/><path d="M17 2v9a3 3 0 0 1-3 3"/><path d="M17 2v20"/>
+                </svg>
+              }
+            </div>
+
+            <span class="absolute right-4 top-4 rounded-full border border-white/15 bg-black/25 px-3 py-1 text-[11px] font-semibold text-white/80 backdrop-blur-md">
+              {{ project.key === 'music' ? i18n.t('Nghe nhạc', 'Music') : i18n.t('Đặt món', 'Ordering') }}
+            </span>
+          </div>
+
+          <div class="flex flex-1 flex-col p-7">
+            <h3 class="font-display text-xl font-semibold text-white">{{ project.name }}</h3>
+            <p class="mt-1 text-sm font-medium text-violet-300">{{ i18n.t(project.tagline.vi, project.tagline.en) }}</p>
+            <p class="mt-3 flex-1 text-sm leading-6 text-white/50">{{ i18n.t(project.description.vi, project.description.en) }}</p>
+
+            <div class="mt-5 flex flex-wrap gap-2">
+              @for (tag of project.tags; track tag) {
+                <span class="rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 font-mono text-[11px] text-white/55">{{ tag }}</span>
+              }
+            </div>
+
+            <div class="mt-6 flex items-center gap-3">
+              <a
+                [href]="project.url" target="_blank" rel="noopener"
+                class="inline-flex flex-1 items-center justify-center gap-1.5 rounded-full bg-gradient-to-r from-violet-600 to-fuchsia-600 px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-violet-600/20 transition-transform duration-200 hover:-translate-y-0.5"
+              >
+                {{ i18n.t('Truy cập trang web', 'Visit website') }}
+                <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7"/><path d="M7 7h10v10"/></svg>
+              </a>
+              <a
+                [href]="project.githubUrl" target="_blank" rel="noopener" aria-label="GitHub repository"
+                class="flex h-10 w-10 shrink-0 items-center justify-center rounded-full border border-white/10 bg-white/5 text-white/60 transition hover:border-white/25 hover:text-white"
+              >
+                <svg width="17" height="17" viewBox="0 0 25 24" fill="currentColor"><path d="M12.3047 0C5.50634 0 0 5.50942 0 12.3047C0 17.7423 3.52529 22.3535 8.41332 23.9787C9.02856 24.0946 9.25414 23.7142 9.25414 23.3871C9.25414 23.0949 9.24389 22.3207 9.23876 21.2953C5.81601 22.0377 5.09414 19.6444 5.09414 19.6444C4.53427 18.2243 3.72524 17.8449 3.72524 17.8449C2.61064 17.082 3.81137 17.0973 3.81137 17.0973C5.04697 17.1835 5.69604 18.3647 5.69604 18.3647C6.79321 20.2463 8.57636 19.7029 9.27978 19.3881C9.39052 18.5924 9.70736 18.0499 10.0591 17.7423C7.32641 17.4347 4.45429 16.3765 4.45429 11.6618C4.45429 10.3185 4.9311 9.22133 5.72065 8.36C5.58222 8.04931 5.16694 6.79833 5.82831 5.10337C5.82831 5.10337 6.85883 4.77319 9.2121 6.36459C10.1965 6.09082 11.2424 5.95546 12.2883 5.94931C13.3342 5.95546 14.3801 6.09082 15.3644 6.36459C17.7023 4.77319 18.7328 5.10337 18.7328 5.10337C19.3942 6.79833 18.9789 8.04931 18.8559 8.36C19.6403 9.22133 20.1171 10.3185 20.1171 11.6618C20.1171 16.3888 17.2409 17.4296 14.5031 17.7321C14.9338 18.1012 15.3337 18.8559 15.3337 20.0084C15.3337 21.6552 15.3183 22.978 15.3183 23.3779C15.3183 23.7009 15.5336 24.0854 16.1642 23.9623C21.0871 22.3484 24.6094 17.7341 24.6094 12.3047C24.6094 5.50942 19.0999 0 12.3047 0Z"/></svg>
+              </a>
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+
+    <div appReveal class="mt-8 text-center">
+      <a
+        [href]="githubOrganizeUrl" target="_blank" rel="noopener"
+        class="inline-flex items-center gap-2 text-sm font-medium text-white/50 transition-colors hover:text-violet-300"
+      >
+        {{ i18n.t('Xem thêm trên GitHub', 'See more on GitHub') }}
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+      </a>
+    </div>
+
+  </div>
+</section>
