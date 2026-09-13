@@ -24,9 +24,9 @@ export class AboutComponent {
     }
 
     readonly numericStats = [
-        { value: this.age, suffix: '', vi: 'Tuổi', en: 'Years old' },
-        { value: 2, suffix: '', vi: 'Dự án cá nhân', en: 'Personal projects' },
-        { value: 11, suffix: '+', vi: 'Công nghệ sử dụng', en: 'Technologies used' }
+        { value: this.age, suffix: '', vi: 'Tuổi', en: 'Years old', href: undefined },
+        { value: 2, suffix: '', vi: 'Dự án cá nhân', en: 'Personal projects', href: ENVI.appInfo.githubOrganizeUrl },
+        { value: 11, suffix: '+', vi: 'Công nghệ sử dụng', en: 'Technologies used', href: undefined }
     ];
 
     readonly tags = [
